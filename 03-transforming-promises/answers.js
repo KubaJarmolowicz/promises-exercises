@@ -57,7 +57,9 @@ function squarePromiseOrZero(promise){
  * @returns {Promise}
  */
 function switcheroo(promise){
-  return promise.then(/* IMPLEMENT ME */);
+  return promise.then(val=>{
+    throw val
+  }, err=> err);
 }
 
 /**
