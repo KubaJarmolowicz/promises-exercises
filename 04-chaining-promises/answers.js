@@ -33,12 +33,17 @@ function chainTwoAsyncProcesses(firstPromise, slowAsyncProcess){
 function makeGetUserByIdWithOrganization(getUserById, getOrganizationById){
   return function getUserByIdWithOrganization(userId){
 
-   getUserById(userId).then(usr=> getOrganizationById(usr.id), err=> {
-      throw new Error(err)})
-                        .then(org =>{
-                          return  {...usr, organization: org}
-                        })
-                        .catch(err=>new Error (err));
+
+      getUserById(userId).then(usr=> {
+
+      getOrganizationById(usr.organizationId).then(org =>{
+
+              const userAndOrg= {...usr, organization: org};
+              console.log(userAndOrg);
+              return userAndOrg;
+      })}, err=> err)
+    .catch(err=>err);
+
   };
 }
 
