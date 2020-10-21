@@ -34,15 +34,49 @@ function makeGetUserByIdWithOrganization(getUserById, getOrganizationById){
   return function getUserByIdWithOrganization(userId){
 
 
-      getUserById(userId).then(usr=> {
 
-      getOrganizationById(usr.organizationId).then(org =>{
+    let user;
 
-              const userAndOrg= {...usr, organization: org};
-              console.log(userAndOrg);
-              return userAndOrg;
-      })}, err=> err)
-    .catch(err=>err);
+       return getUserById(userId)
+        .then(usr=> {
+          user= usr;
+          return usr.organizationId})
+        .then(orgID=> {
+          //console.log(orgID);
+          return getOrganizationById(orgID)})
+        .then(fetchedOrg=>{
+        //  console.log(fetchedOrg);
+        //  console.log(user);
+          const userAndOrg= {...user, organization: fetchedOrg};
+          console.log(userAndOrg);
+          return userAndOrg;
+        })
+        .catch(err=>{
+          return
+        });
+
+
+
+    // try{
+    // const user= await getUserById(userId);
+
+    // const org= await getOrganizationById(user.organizationId)
+
+    //          const userAndOrg= {...user, organization: org};
+    //          console.log(userAndOrg);
+    //          return userAndOrg;
+    // } catch(err){
+    //   return
+    // }
+
+    //  return getUserById(userId).then(usr=> {
+
+    //   getOrganizationById(usr.organizationId).then(org =>{
+
+    //           const userAndOrg= {...usr, organization: org};
+    //           return userAndOrg;
+    //   })}, ()=>{})
+    // .catch(err=>err);
 
   };
 }
