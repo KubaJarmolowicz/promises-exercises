@@ -42,11 +42,8 @@ function makeGetUserByIdWithOrganization(getUserById, getOrganizationById){
           user= usr;
           return usr.organizationId})
         .then(orgID=> {
-          //console.log(orgID);
           return getOrganizationById(orgID)})
         .then(fetchedOrg=>{
-        //  console.log(fetchedOrg);
-        //  console.log(user);
           const userAndOrg= {...user, organization: fetchedOrg};
           console.log(userAndOrg);
           return userAndOrg;
@@ -68,15 +65,6 @@ function makeGetUserByIdWithOrganization(getUserById, getOrganizationById){
     // } catch(err){
     //   return
     // }
-
-    //  return getUserById(userId).then(usr=> {
-
-    //   getOrganizationById(usr.organizationId).then(org =>{
-
-    //           const userAndOrg= {...usr, organization: org};
-    //           return userAndOrg;
-    //   })}, ()=>{})
-    // .catch(err=>err);
 
   };
 }
